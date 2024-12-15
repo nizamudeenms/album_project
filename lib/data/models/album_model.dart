@@ -1,5 +1,3 @@
-
-
 import 'package:album_project/domain/entities/album.dart';
 
 class AlbumModel extends Album {
