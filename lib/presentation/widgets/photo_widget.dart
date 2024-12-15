@@ -10,30 +10,28 @@ class PhotoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 120,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.all(8.0),
         itemCount: photos.length * 2, // Infinite scrolling logic
         itemBuilder: (context, index) {
           final photo = photos[index % photos.length];
           print(photo.url);
-          return Container(
-            width: 100,
-            height: 100,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CachedNetworkImage(
-                imageUrl: photo.url,
-                placeholder: (context, url) => const Center(
-                    child: SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: CircularProgressIndicator())),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
+          return SizedBox(
+            width: 80,
+            height: 80,
+            child: CachedNetworkImage(
+              imageUrl: photo.url,
+              placeholder: (context, url) => const Center(
+                  child: SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: CircularProgressIndicator())),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
             ),
           );
         },

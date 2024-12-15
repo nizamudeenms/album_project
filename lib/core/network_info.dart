@@ -12,6 +12,8 @@ class NetworkInfoImpl implements NetworkInfo {
   @override
   Future<bool> get isConnected async {
     var result = await connectivity.checkConnectivity();
-    return result != ConnectivityResult.none;
+    final isConnected = result != ConnectivityResult.none;
+    print('Network status: $result, isConnected: $isConnected');
+    return isConnected;
   }
 }

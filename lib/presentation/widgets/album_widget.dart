@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../domain/entities/album.dart';
 import '../../../domain/entities/photo.dart';
@@ -23,21 +24,31 @@ class AlbumWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 150,
+          height: 120,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: photos.length,
             itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.network(
-                photos[index % photos.length].url,
-                width: 150,
-                height: 150,
+              padding: const EdgeInsets.all(4.0),
+              child: CachedNetworkImage(
+                imageUrl: photos[index % photos.length].url,
+                placeholder: (context, url) => const Center(
+                  child: SizedBox(
+                    width: 25,
+                    height: 25,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.error, size: 50, color: Colors.red),
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
               ),
             ),
           ),
         ),
-        const Divider(),
+        const Divider(height: 1),
       ],
     );
   }

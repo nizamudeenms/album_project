@@ -19,10 +19,12 @@ class AlbumRepositoryImpl implements AlbumRepository {
   Future<List<Album>> getAlbums() async {
     final isConnected = await networkInfo.isConnected;
     if (isConnected) {
+      print('Data from online');
       final albums = await remoteDataSource.getAlbums();
       await localDataSource.cacheAlbums(albums);
       return albums;
     } else {
+      print('Data from cache');
       return await localDataSource.getCachedAlbums();
     }
   }

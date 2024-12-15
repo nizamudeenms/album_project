@@ -19,10 +19,12 @@ class PhotoRepositoryImpl implements PhotoRepository {
   Future<List<Photo>> getPhotos(int albumId) async {
     final isConnected = await networkInfo.isConnected;
     if (isConnected) {
+      print('Data from online');
       final photos = await remoteDataSource.getPhotos(albumId);
       await localDataSource.cachePhotos(albumId, photos);
       return photos;
     } else {
+      print('Data from Cache');
       return await localDataSource.getCachedPhotos(albumId);
     }
   }
